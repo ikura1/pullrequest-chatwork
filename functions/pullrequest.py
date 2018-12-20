@@ -4,22 +4,21 @@ import json
 import requests
 
 
-def hello_world(request):
-    """Responds to any HTTP request.
-    Args:
-        request (flask.Request): HTTP request object.
-    Returns:
-        The response text or any set of values that can be turned into a
-        Response object using
-        `make_response <http://flask.pocoo.org/docs/0.12/api/#flask.Flask.make_response>`.
-    """
-    request_json = request.get_json()
-    if request.args and 'message' in request.args:
-        return request.args.get('message')
-    elif request_json and 'message' in request_json:
-        return request_json['message']
-    else:
-        return f'Hello World!'
+CHAT_API_TOKEN = os.getenv('CHATWORKTOKEN', 'localhost')
+CHAT_ROOM_ID = os.getenv('ROOM_ID_DEV', '4649')
+CHAT_BASE_URL = 'https://api.chatwork.com/v2'
+USERS = {'ikuda': {'id': '3081799', 'name': 'おくだ'},
+         'yoshitaka_minami': {'id': '958229', 'name': 'みなみ'}
+         }
+
+
+def hello(request):
+    return 'Hello, Functions'
+
+
+def message_hello(request):
+    send_message(request, [], 'Hello, ChatWork')
+    return {'stats': True}
 
 
 def pullrequest(request):
@@ -67,11 +66,10 @@ def create_message(actor_name, reviewers,
     return mentions, '\n'.join(message)
 
 
-def send_message(mentions, message):
-    base_url = config.BASE_URL
-    room_id = config.ROOM_ID
-    token = config.API_TOKEN
-    user_dict = config.USERS
+    base_url = CHAT_BASE_URL
+    room_id = CHAT_ROOM_ID
+    token = CHAT_API_TOKEN
+    user_dict = USERS
     mention_template = '[To:{id}] {name}さん\n'
     mention_templates = {k: mention_template.format_map(v) for k, v in user_dict.items()}
 

@@ -1,4 +1,5 @@
 # はじめに
+CloudFunctionsまとめのほうがいいのか?
 BitbucketのプルリクをChatworkに流すだけのスクリプト
 
 # 環境変数について
@@ -8,7 +9,6 @@ BitbucketのプルリクをChatworkに流すだけのスクリプト
 ```
 ├── README.md
 └── functions
-    ├── config.py
     └── pullrequest.py
 
 ```
