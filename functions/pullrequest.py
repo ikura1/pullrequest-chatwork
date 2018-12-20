@@ -9,15 +9,6 @@ CHAT_BASE_URL = 'https://api.chatwork.com/v2'
 USERS = json.loads(os.getenv('USERS', ''))
 
 
-def hello(request):
-    return 'Hello, Functions'
-
-
-def message_hello(request):
-    send_message(request, [], 'Hello, ChatWork')
-    return {'stats': True}
-
-
 def pullrequest(request):
     headers = request.headers
     request_json = request.get_json()
@@ -75,8 +66,6 @@ def send_message(mentions, message):
 
     headers = {'X-ChatWorkToken': token}
     params = {'body': message}
-    # print(post_message_url, headers, params)
-    print(message)
     r = requests.post(post_message_url,
                       headers=headers,
                       params=params)
