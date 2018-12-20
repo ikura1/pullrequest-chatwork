@@ -50,8 +50,8 @@ def create_message(
 ):
     mentions = [f"{{{user}}}" for user in reviewers]
     message = [
-        "作成者: {{{actor_name}}}",
-        "レポジトリ: {repository}",
+        f"作成者: {{{actor_name}}}",
+        f"レポジトリ: {repository}",
         f"ブランチ: {source_branch} → {destination_branch}",
         f"タイトル: {title}",
         f"url: {url}",
