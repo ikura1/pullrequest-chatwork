@@ -1,15 +1,12 @@
 # -*- encoding: utf-8 -*-
-import config
-import json
+import os
 import requests
-
+import json
 
 CHAT_API_TOKEN = os.getenv('CHATWORKTOKEN', 'localhost')
 CHAT_ROOM_ID = os.getenv('ROOM_ID_DEV', '4649')
 CHAT_BASE_URL = 'https://api.chatwork.com/v2'
-USERS = {'ikuda': {'id': '3081799', 'name': 'おくだ'},
-         'yoshitaka_minami': {'id': '958229', 'name': 'みなみ'}
-         }
+USERS = json.loads(os.getenv('USERS', ''))
 
 
 def hello(request):
