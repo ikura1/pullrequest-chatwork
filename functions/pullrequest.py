@@ -35,18 +35,11 @@ def create_message(actor_name, reviewers,
                    repository, destination_branch, source_branch,
                    title, description, url):
     mentions = [f'{{{user}}}' for user in reviewers]
-    message = ['作成者:',
-               f'    {{{actor_name}}}',
-               'レポジトリ:',
-               f'    {repository}',
-               f'ブランチ:',
-               f'    {source_branch} → {destination_branch}',
-               f'タイトル:',
-               f'    {title}',
-               f'説明:',
-               f'    {description}',
-               f'url:',
-               f'    {url}'
+    message = ['作成者: {{{actor_name}}}',
+               'レポジトリ: {repository}',
+               f'ブランチ: {source_branch} → {destination_branch}',
+               f'タイトル: {title}',
+               f'url: {url}'
                ]
     return mentions, '\n'.join(message)
 
