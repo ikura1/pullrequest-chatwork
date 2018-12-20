@@ -80,3 +80,9 @@ def send_message(mentions, message):
     params = {"body": message}
     r = requests.post(post_message_url, headers=headers, params=params)
     return r
+
+
+if __name__ == "__main__":
+    print(USERS)
+    print("hoge")
+
