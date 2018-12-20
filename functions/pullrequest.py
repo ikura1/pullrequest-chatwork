@@ -35,7 +35,7 @@ def pullrequest(request):
         description,
         url,
     )
-    return send_message(mentions, message)
+    return str(send_message(mentions, message))
 
 
 def create_message(
