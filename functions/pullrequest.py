@@ -37,9 +37,7 @@ def pullrequest(request):
     mentions, message = create_message(actor_name, reviewers, repository,
                                        destination_branch, source_branch,
                                        title, description, url)
-    # print(message)
-    send_message(mentions, message)
-    return
+    return send_message(mentions, message)
 
 
 def create_message(actor_name, reviewers,
@@ -62,6 +60,7 @@ def create_message(actor_name, reviewers,
     return mentions, '\n'.join(message)
 
 
+def send_message(mentions, message):
     base_url = CHAT_BASE_URL
     room_id = CHAT_ROOM_ID
     token = CHAT_API_TOKEN
