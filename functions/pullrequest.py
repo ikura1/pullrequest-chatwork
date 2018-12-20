@@ -19,22 +19,21 @@ def message_hello(request):
 
 
 def pullrequest(request):
-    request_json = request.get_json() if request else json.loads(JSON)
+    headers = request.headers
+    request_json = request.get_json()
+    if headers.get('X-Event_Key') != 'pullrequest:created':
+        return 'False'
     if not request_json:
-        return {'stats': False}
-    if request_json['event'] != 'pullrequest:created':
-        return {'stats': False}
-
-    data = request_json['data']['pullrequest']
-    repository = request_json['data']['repository']['name']
-    actor_name = request_json['data']['actor']['username']
+        return 'False'
+    data = request_json['pullrequest']
+    repository = request_json['repository']['name']
+    actor_name = request_json['actor']['username']
     description = data['description']
     title = data['title']
     reviewers = [user['username'] for user in data['reviewers']]
     url = data['links']['html']['href']
     destination_branch = data['destination']['branch']['name']
     source_branch = data['source']['branch']['name']
-
     mentions, message = create_message(actor_name, reviewers, repository,
                                        destination_branch, source_branch,
                                        title, description, url)
