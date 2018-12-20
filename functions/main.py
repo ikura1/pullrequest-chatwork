@@ -49,14 +49,15 @@ def create_message(
     url,
 ):
     mentions = [f"{{{user}}}" for user in reviewers]
-    message = [
+    info_list = [
         f"作成者: {{{actor_name}}}",
         f"レポジトリ: {repository}",
         f"ブランチ: {source_branch} → {destination_branch}",
-        f"タイトル: {title}",
         f"url: {url}",
     ]
-    return mentions, "\n".join(message)
+    info_message = "\n".join(info_list)
+    message = f"[info][title][PullRequest]{title}[/title]{info_message}[/info]"
+    return mentions, message
 
 
 def send_message(mentions, message):
