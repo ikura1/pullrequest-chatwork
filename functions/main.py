@@ -76,13 +76,13 @@ def create_approval_message(
         f"url: {url}",
     ]
     approval_stats = [
-        f"{':ok_hand:' if participants[user] else ':thinking:'}: {{{user}}}"
+        f"{':+1:' if participants[user] else ':thinking_face:'} : {{{user}}}"
         for user in reviewers
     ]
     info_list.extend(approval_stats)
     info_message = "\n".join(info_list)
     message = f"[info][title][PullRequest]{title}[/title]{info_message}[/info]"
-    return mentions, emoji.emojize(message)
+    return mentions, emoji.emojize(message, use_aliases=True)
 
 
 def create_create_message(
