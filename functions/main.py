@@ -81,7 +81,7 @@ def create_approval_message(
     ]
     info_list.extend(approval_stats)
     info_message = "\n".join(info_list)
-    message = f"[info][title][PullRequest]{title}[/title]{info_message}[/info]"
+    message = f"[info][title][プルリク]{title}[/title]{info_message}[/info]"
     return mentions, emoji.emojize(message, use_aliases=True)
 
 
@@ -103,7 +103,7 @@ def create_create_message(
         f"url: {url}",
     ]
     info_message = "\n".join(info_list)
-    message = f"[info][title][PullRequest]{title}[/title]{info_message}[/info]"
+    message = f"[info][title][プルリク]{title}[/title]{info_message}[/info]"
     return mentions, message
 
 
