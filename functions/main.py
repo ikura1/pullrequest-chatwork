@@ -2,6 +2,7 @@
 import os
 import requests
 import json
+import emoji
 
 CHAT_API_TOKEN = os.getenv("CHATWORKTOKEN", "localhost")
 CHAT_ROOM_ID = os.getenv("ROOM_ID", "4649")
@@ -10,35 +11,81 @@ USERS = json.loads(os.getenv("USERS", ""))
 
 
 def pullrequest(request):
+    target_events = ["pullrequest:created", "pullrequest:approved"]
     headers = request.headers
     request_json = request.get_json()
-    if headers.get("X-Event_Key") != "pullrequest:created":
-        return "False"
+    event = headers.get("X-Event_Key")
     if not request_json:
         return "False"
-    data = request_json["pullrequest"]
+    if event not in target_events:
+        return "False"
+
+    pullrequest_info = request_json["pullrequest"]
+
     repository = request_json["repository"]["name"]
     actor_name = request_json["actor"]["username"]
-    description = data["description"]
-    title = data["title"]
-    reviewers = [user["username"] for user in data["reviewers"]]
-    url = data["links"]["html"]["href"]
-    destination_branch = data["destination"]["branch"]["name"]
-    source_branch = data["source"]["branch"]["name"]
-    mentions, message = create_message(
-        actor_name,
-        reviewers,
-        repository,
-        destination_branch,
-        source_branch,
-        title,
-        description,
-        url,
-    )
+    description = pullrequest_info["description"]
+    title = pullrequest_info["title"]
+    reviewers = [user["username"] for user in pullrequest_info["reviewers"]]
+    url = pullrequest_info["links"]["html"]["href"]
+    destination_branch = pullrequest_info["destination"]["branch"]["name"]
+    source_branch = pullrequest_info["source"]["branch"]["name"]
+    if event == "pullrequest:created":
+        mentions, message = create_create_message(
+            actor_name,
+            reviewers,
+            repository,
+            destination_branch,
+            source_branch,
+            title,
+            description,
+            url,
+        )
+    if event == "pullrequest:approved":
+        participants = {
+            user["username"]: user["participants"]
+            for user in pullrequest_info["participants"]
+        }
+        mentions, message = create_approval_message(
+            actor_name,
+            reviewers,
+            participants,
+            repository,
+            destination_branch,
+            source_branch,
+            title,
+            url,
+        )
     return str(send_message(mentions, message))
 
 
-def create_message(
+def create_approval_message(
+    actor_name,
+    reviewers,
+    participants,
+    repository,
+    destination_branch,
+    source_branch,
+    title,
+    url,
+):
+    mentions = [f"{{{actor_name}}}"]
+    info_list = [
+        f"レポジトリ: {repository}",
+        f"ブランチ: {source_branch} → {destination_branch}",
+        f"url: {url}",
+    ]
+    approval_stats = [
+        f"{':ok_hand:' if participants[user] else ':thinking:'}: {{{user}}}"
+        for user in reviewers
+    ]
+    info_list.extend(approval_stats)
+    info_message = "\n".join(info_list)
+    message = f"[info][title][PullRequest]{title}[/title]{info_message}[/info]"
+    return mentions, emoji.emojize(message)
+
+
+def create_create_message(
     actor_name,
     reviewers,
     repository,
