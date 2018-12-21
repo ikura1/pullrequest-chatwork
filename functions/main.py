@@ -43,7 +43,7 @@ def pullrequest(request):
         )
     if event == "pullrequest:approved":
         participants = {
-            user["username"]: user["participants"]
+            user["username"]: user["approved"]
             for user in pullrequest_info["participants"]
         }
         mentions, message = create_approval_message(
