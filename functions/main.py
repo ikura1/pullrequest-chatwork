@@ -60,9 +60,10 @@ def create_message(
     return mentions, message
 
 
-def send_message(mentions, message):
+def send_message(mentions, message, room_id=None):
+    if room_id is None:
+        room_id = CHAT_ROOM_ID
     base_url = CHAT_BASE_URL
-    room_id = CHAT_ROOM_ID
     token = CHAT_API_TOKEN
     user_dict = USERS
     mention_template = "[To:{id}] {name}さん\n"
