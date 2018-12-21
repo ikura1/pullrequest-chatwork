@@ -23,7 +23,7 @@ def pullrequest(request):
     pullrequest_info = request_json["pullrequest"]
 
     repository = request_json["repository"]["name"]
-    actor_name = request_json["actor"]["username"]
+    author_name = pullrequest["author"]["username"]
     description = pullrequest_info["description"]
     title = pullrequest_info["title"]
     reviewers = [user["username"] for user in pullrequest_info["reviewers"]]
@@ -32,7 +32,7 @@ def pullrequest(request):
     source_branch = pullrequest_info["source"]["branch"]["name"]
     if event == "pullrequest:created":
         mentions, message = create_create_message(
-            actor_name,
+            author_name,
             reviewers,
             repository,
             destination_branch,
@@ -47,7 +47,7 @@ def pullrequest(request):
             for user in pullrequest_info["participants"]
         }
         mentions, message = create_approval_message(
-            actor_name,
+            author_name,
             reviewers,
             participants,
             repository,
@@ -60,7 +60,7 @@ def pullrequest(request):
 
 
 def create_approval_message(
-    actor_name,
+    author_name,
     reviewers,
     participants,
     repository,
@@ -69,7 +69,7 @@ def create_approval_message(
     title,
     url,
 ):
-    mentions = [f"{{{actor_name}}}"]
+    mentions = [f"{{{author_name}}}"]
     info_list = [
         f"レポジトリ: {repository}",
         f"ブランチ: {source_branch} → {destination_branch}",
@@ -86,7 +86,7 @@ def create_approval_message(
 
 
 def create_create_message(
-    actor_name,
+    author_name,
     reviewers,
     repository,
     destination_branch,
@@ -97,7 +97,7 @@ def create_create_message(
 ):
     mentions = [f"{{{user}}}" for user in reviewers]
     info_list = [
-        f"作成者: {{{actor_name}}}",
+        f"作成者: {{{author_name}}}",
         f"レポジトリ: {repository}",
         f"ブランチ: {source_branch} → {destination_branch}",
         f"url: {url}",
