@@ -23,7 +23,7 @@ def pullrequest(request):
     pullrequest_info = request_json["pullrequest"]
 
     repository = request_json["repository"]["name"]
-    author_name = pullrequest["author"]["username"]
+    author_name = pullrequest_info["author"]["username"]
     description = pullrequest_info["description"]
     title = pullrequest_info["title"]
     reviewers = [user["username"] for user in pullrequest_info["reviewers"]]
