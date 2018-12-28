@@ -7,7 +7,7 @@ import emoji
 CHAT_API_TOKEN = os.getenv("CHATWORKTOKEN", "localhost")
 CHAT_ROOM_ID = os.getenv("ROOM_ID", "4649")
 CHAT_BASE_URL = "https://api.chatwork.com/v2"
-USERS = json.loads(os.getenv("USERS", ""))
+USERS = json.loads(os.getenv("USERS", "{}"))
 
 
 def pullrequest(request):
