@@ -19,7 +19,11 @@ def pullrequest(request):
         return "False"
     if event not in target_events:
         return "False"
+    mentions, message = create_message(event, request_json)
+    return str(send_message(mentions, message))
 
+
+def create_message(event, request_json):
     pullrequest_info = request_json["pullrequest"]
 
     repository = request_json["repository"]["name"]
@@ -56,7 +60,7 @@ def pullrequest(request):
             title,
             url,
         )
-    return str(send_message(mentions, message))
+    return mentions, message
 
 
 def create_approval_message(
