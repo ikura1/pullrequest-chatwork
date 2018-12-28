@@ -1,0 +1,357 @@
+{
+  "approval": {
+    "date": "2018-12-25T09:17:57.592551+00:00",
+    "user": {
+      "username": "miyoshikyouhei",
+      "display_name": "三由京平",
+      "account_id": "5b39bbf8536f9e2e2f6f5d17",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/users/miyoshikyouhei"
+        },
+        "html": {
+          "href": "https://bitbucket.org/miyoshikyouhei/"
+        },
+        "avatar": {
+          "href": "https://bitbucket.org/account/miyoshikyouhei/avatar/"
+        }
+      },
+      "type": "user",
+      "nickname": "miyoshikyouhei",
+      "uuid": "{fe235b03-305c-4e2e-87ea-14612450cd3e}"
+    }
+  },
+  "pullrequest": {
+    "rendered": {
+      "description": {
+        "raw": "* Added toto to header.\r\n* Removed space.",
+        "markup": "markdown",
+        "html": "<ul>\n<li>Added toto to header.</li>\n<li>Removed space.</li>\n</ul>",
+        "type": "rendered"
+      },
+      "title": {
+        "raw": "ヘッダーメニューにtoto追加",
+        "markup": "markdown",
+        "html": "<p>ヘッダーメニューにtoto追加</p>",
+        "type": "rendered"
+      }
+    },
+    "merge_commit": {
+      "type": "commit",
+      "hash": "75abaf8d0bb8",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/commit/75abaf8d0bb8"
+        },
+        "html": {
+          "href": "https://bitbucket.org/gladcube/gs-front-football/commits/75abaf8d0bb8"
+        }
+      }
+    },
+    "description": "* Added toto to header.\r\n* Removed space.",
+    "links": {
+      "decline": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286/decline"
+      },
+      "commits": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286/commits"
+      },
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286"
+      },
+      "comments": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286/comments"
+      },
+      "merge": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286/merge"
+      },
+      "html": {
+        "href": "https://bitbucket.org/gladcube/gs-front-football/pull-requests/286"
+      },
+      "activity": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286/activity"
+      },
+      "diff": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286/diff"
+      },
+      "approve": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286/approve"
+      },
+      "statuses": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/pullrequests/286/statuses"
+      }
+    },
+    "title": "ヘッダーメニューにtoto追加",
+    "close_source_branch": true,
+    "reviewers": [
+      {
+        "username": "yoshitaka_minami",
+        "display_name": "yoshitaka minami",
+        "account_id": "557058:95f3a1f2-3934-4a2e-8a03-ec23e6bd50c4",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/yoshitaka_minami"
+          },
+          "html": {
+            "href": "https://bitbucket.org/yoshitaka_minami/"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/account/yoshitaka_minami/avatar/"
+          }
+        },
+        "type": "user",
+        "nickname": "yoshitaka_minami",
+        "uuid": "{bd1d3765-a714-4bdf-8649-b6687ac88543}"
+      },
+      {
+        "username": "miyoshikyouhei",
+        "display_name": "三由京平",
+        "account_id": "5b39bbf8536f9e2e2f6f5d17",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/miyoshikyouhei"
+          },
+          "html": {
+            "href": "https://bitbucket.org/miyoshikyouhei/"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/account/miyoshikyouhei/avatar/"
+          }
+        },
+        "type": "user",
+        "nickname": "miyoshikyouhei",
+        "uuid": "{fe235b03-305c-4e2e-87ea-14612450cd3e}"
+      }
+    ],
+    "destination": {
+      "commit": {
+        "type": "commit",
+        "hash": "433dcc27d6ec",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/commit/433dcc27d6ec"
+          },
+          "html": {
+            "href": "https://bitbucket.org/gladcube/gs-front-football/commits/433dcc27d6ec"
+          }
+        }
+      },
+      "branch": {
+        "name": "master"
+      },
+      "repository": {
+        "full_name": "gladcube/gs-front-football",
+        "type": "repository",
+        "name": "gs-front-football",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football"
+          },
+          "html": {
+            "href": "https://bitbucket.org/gladcube/gs-front-football"
+          },
+          "avatar": {
+            "href": "https://bytebucket.org/ravatar/%7B9db55f16-57a3-4e73-adf2-283586e1c815%7D?ts=default"
+          }
+        },
+        "uuid": "{9db55f16-57a3-4e73-adf2-283586e1c815}"
+      }
+    },
+    "comment_count": 0,
+    "closed_by": {
+      "username": "t-morinaga",
+      "display_name": "t-morinaga",
+      "account_id": "557058:a43c43c2-7988-4700-8833-2e43a365f58f",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/users/t-morinaga"
+        },
+        "html": {
+          "href": "https://bitbucket.org/t-morinaga/"
+        },
+        "avatar": {
+          "href": "https://bitbucket.org/account/t-morinaga/avatar/"
+        }
+      },
+      "type": "user",
+      "nickname": "t-morinaga",
+      "uuid": "{bd0d8f02-03ac-40dd-aab7-4f8ffe1b6ad5}"
+    },
+    "summary": {
+      "raw": "* Added toto to header.\r\n* Removed space.",
+      "markup": "markdown",
+      "html": "<ul>\n<li>Added toto to header.</li>\n<li>Removed space.</li>\n</ul>",
+      "type": "rendered"
+    },
+    "source": {
+      "commit": {
+        "type": "commit",
+        "hash": "575d835621c7",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football/commit/575d835621c7"
+          },
+          "html": {
+            "href": "https://bitbucket.org/gladcube/gs-front-football/commits/575d835621c7"
+          }
+        }
+      },
+      "branch": {
+        "name": "header_toto"
+      },
+      "repository": {
+        "full_name": "gladcube/gs-front-football",
+        "type": "repository",
+        "name": "gs-front-football",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football"
+          },
+          "html": {
+            "href": "https://bitbucket.org/gladcube/gs-front-football"
+          },
+          "avatar": {
+            "href": "https://bytebucket.org/ravatar/%7B9db55f16-57a3-4e73-adf2-283586e1c815%7D?ts=default"
+          }
+        },
+        "uuid": "{9db55f16-57a3-4e73-adf2-283586e1c815}"
+      }
+    },
+    "created_on": "2018-12-25T08:49:02.428693+00:00",
+    "state": "MERGED",
+    "task_count": 0,
+    "participants": [
+      {
+        "type": "participant",
+        "user": {
+          "username": "yoshitaka_minami",
+          "display_name": "yoshitaka minami",
+          "account_id": "557058:95f3a1f2-3934-4a2e-8a03-ec23e6bd50c4",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/users/yoshitaka_minami"
+            },
+            "html": {
+              "href": "https://bitbucket.org/yoshitaka_minami/"
+            },
+            "avatar": {
+              "href": "https://bitbucket.org/account/yoshitaka_minami/avatar/"
+            }
+          },
+          "type": "user",
+          "nickname": "yoshitaka_minami",
+          "uuid": "{bd1d3765-a714-4bdf-8649-b6687ac88543}"
+        },
+        "role": "REVIEWER",
+        "approved": true,
+        "participated_on": "2018-12-25T08:51:13.437577+00:00"
+      },
+      {
+        "type": "participant",
+        "user": {
+          "username": "miyoshikyouhei",
+          "display_name": "三由京平",
+          "account_id": "5b39bbf8536f9e2e2f6f5d17",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/users/miyoshikyouhei"
+            },
+            "html": {
+              "href": "https://bitbucket.org/miyoshikyouhei/"
+            },
+            "avatar": {
+              "href": "https://bitbucket.org/account/miyoshikyouhei/avatar/"
+            }
+          },
+          "type": "user",
+          "nickname": "miyoshikyouhei",
+          "uuid": "{fe235b03-305c-4e2e-87ea-14612450cd3e}"
+        },
+        "role": "REVIEWER",
+        "approved": true,
+        "participated_on": "2018-12-25T09:17:57.592551+00:00"
+      }
+    ],
+    "reason": "",
+    "updated_on": "2018-12-25T09:17:57.595555+00:00",
+    "author": {
+      "username": "t-morinaga",
+      "display_name": "t-morinaga",
+      "account_id": "557058:a43c43c2-7988-4700-8833-2e43a365f58f",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/users/t-morinaga"
+        },
+        "html": {
+          "href": "https://bitbucket.org/t-morinaga/"
+        },
+        "avatar": {
+          "href": "https://bitbucket.org/account/t-morinaga/avatar/"
+        }
+      },
+      "type": "user",
+      "nickname": "t-morinaga",
+      "uuid": "{bd0d8f02-03ac-40dd-aab7-4f8ffe1b6ad5}"
+    },
+    "type": "pullrequest",
+    "id": 286
+  },
+  "actor": {
+    "username": "miyoshikyouhei",
+    "display_name": "三由京平",
+    "account_id": "5b39bbf8536f9e2e2f6f5d17",
+    "links": {
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/users/miyoshikyouhei"
+      },
+      "html": {
+        "href": "https://bitbucket.org/miyoshikyouhei/"
+      },
+      "avatar": {
+        "href": "https://bitbucket.org/account/miyoshikyouhei/avatar/"
+      }
+    },
+    "type": "user",
+    "nickname": "miyoshikyouhei",
+    "uuid": "{fe235b03-305c-4e2e-87ea-14612450cd3e}"
+  },
+  "repository": {
+    "scm": "git",
+    "website": "",
+    "name": "gs-front-football",
+    "links": {
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/repositories/gladcube/gs-front-football"
+      },
+      "html": {
+        "href": "https://bitbucket.org/gladcube/gs-front-football"
+      },
+      "avatar": {
+        "href": "https://bytebucket.org/ravatar/%7B9db55f16-57a3-4e73-adf2-283586e1c815%7D?ts=default"
+      }
+    },
+    "full_name": "gladcube/gs-front-football",
+    "owner": {
+      "username": "gladcube",
+      "display_name": "gladcube",
+      "account_id": "557058:e14f601e-1b63-4b7b-9bb8-90aa26283126",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/users/gladcube"
+        },
+        "html": {
+          "href": "https://bitbucket.org/gladcube/"
+        },
+        "avatar": {
+          "href": "https://bitbucket.org/account/gladcube/avatar/"
+        }
+      },
+      "type": "user",
+      "nickname": "gladcube",
+      "uuid": "{f790b23d-cef8-49c0-a7ca-a5ccc028ddae}"
+    },
+    "type": "repository",
+    "is_private": true,
+    "uuid": "{9db55f16-57a3-4e73-adf2-283586e1c815}"
+  }
+}
