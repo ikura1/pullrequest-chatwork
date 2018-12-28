@@ -79,10 +79,12 @@ def create_approval_message(
         f"ブランチ: {source_branch} → {destination_branch}",
         f"url: {url}",
     ]
+    reviewers.extend([k for k, v in participants.items() if v and k not in reviewers])
     approval_stats = [
         f"{':+1:' if participants[user] else ':thinking_face:'} : {{{user}}}"
         for user in reviewers
     ]
+
     info_list.extend(approval_stats)
     info_message = "\n".join(info_list)
     message = f"[info][title][プルリク]{title}[/title]{info_message}[/info]"
