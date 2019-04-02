@@ -7,20 +7,22 @@ import emoji
 CHAT_API_TOKEN = os.getenv("CHATWORKTOKEN", "localhost")
 CHAT_ROOM_ID = os.getenv("ROOM_ID", "4649")
 CHAT_BASE_URL = "https://api.chatwork.com/v2"
-USERS = json.loads(os.getenv("USERS", ""))
+USERS = json.loads(os.getenv("USERS", "{}"))
 
 
-def event(request):
+def manage_event(request):
     headers = request.headers
     request_json = request.get_json()
     event = headers.get("X-Event_Key")
     if not request_json:
         return "False"
     if event in ["pullrequest:created", "pullrequest:approved"]:
-        pullrequest(request_json)
+        mentions, message = pullrequest(event, request_json)
     elif event in ["repo:commit_status_updated"]:
-        commit(request_json)
-    return "False"
+        mentions, message = commit(request_json)
+    else:
+        return "False"
+    return str(send_message(mentions, message))
 
 
 def commit(request_json):
@@ -28,17 +30,17 @@ def commit(request_json):
     repository = request_json["repository"]["name"]
     commit_type = commit_info["type"]
     commit_state = commit_info["state"]
-    author_name = commit_info['commit']["author"]["user"]["username"]
+    author_name = commit_info["commit"]["author"]["user"]["username"]
     description = commit_info["description"]
     title = commit_info["name"]
     url = commit_info["url"]
     mentions, message = create_commit_message(
         author_name, repository, title, description, url, commit_type, commit_state
     )
-    return str(send_message(mentions, message))
+    return mentions, message
 
 
-def pullrequest(request_json):
+def pullrequest(event, request_json):
     pullrequest_info = request_json["pullrequest"]
     repository = request_json["repository"]["name"]
     author_name = pullrequest_info["author"]["username"]
@@ -74,9 +76,7 @@ def pullrequest(request_json):
             title,
             url,
         )
-    else:
-        return "False"
-    return str(send_message(mentions, message))
+    return mentions, message
 
 
 def create_commit_message(
@@ -86,9 +86,13 @@ def create_commit_message(
     state_emoji = {
         "INPROGRESS": ":arrows_counterclockwise:",
         "SUCCESSFUL": ":white_check_mark:",
-        "FAILED": ":x:"
+        "FAILED": ":x:",
     }
-    info_list = [f"詳細: {description}", f"状況: {state}{state_emoji[state]}", f"url: {url}"]
+    info_list = [
+        f"詳細: {description}",
+        f"状況: {state}{state_emoji[state]}",
+        f"url: {url}",
+    ]
     info_message = "\n".join(info_list)
     message = (
         f"[info][title][{type_}]{repository}: {title}[/title]{info_message}[/info]"
@@ -112,10 +116,12 @@ def create_approval_message(
         f"ブランチ: {source_branch} → {destination_branch}",
         f"url: {url}",
     ]
+    reviewers.extend([k for k, v in participants.items() if v and k not in reviewers])
     approval_stats = [
         f"{':+1:' if participants[user] else ':thinking_face:'} : {{{user}}}"
         for user in reviewers
     ]
+
     info_list.extend(approval_stats)
     info_message = "\n".join(info_list)
     message = f"[info][title][プルリク]{title}[/title]{info_message}[/info]"
