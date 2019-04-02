@@ -10,18 +10,19 @@ CHAT_BASE_URL = "https://api.chatwork.com/v2"
 USERS = json.loads(os.getenv("USERS", ""))
 
 
-def pullrequest(request):
-    target_events = ["pullrequest:created", "pullrequest:approved"]
+def event(request):
     headers = request.headers
     request_json = request.get_json()
     event = headers.get("X-Event_Key")
     if not request_json:
         return "False"
-    if event not in target_events:
-        return "False"
+    if event in ["pullrequest:created", "pullrequest:approved"]:
+        pullrequest(request_json)
+    return "False"
 
+
+def pullrequest(request_json):
     pullrequest_info = request_json["pullrequest"]
-
     repository = request_json["repository"]["name"]
     author_name = pullrequest_info["author"]["username"]
     description = pullrequest_info["description"]
@@ -41,7 +42,7 @@ def pullrequest(request):
             description,
             url,
         )
-    if event == "pullrequest:approved":
+    elif event == "pullrequest:approved":
         participants = {
             user["user"]["username"]: user["approved"]
             for user in pullrequest_info["participants"]
@@ -56,6 +57,8 @@ def pullrequest(request):
             title,
             url,
         )
+    else:
+        return "False"
     return str(send_message(mentions, message))
 
 
