@@ -18,7 +18,24 @@ def event(request):
         return "False"
     if event in ["pullrequest:created", "pullrequest:approved"]:
         pullrequest(request_json)
+    elif event in ["repo:commit_status_updated"]:
+        commit(request_json)
     return "False"
+
+
+def commit(request_json):
+    commit_info = request_json["commit_status"]
+    repository = request_json["repository"]["name"]
+    commit_type = commit_info["type"]
+    commit_state = commit_info["state"]
+    author_name = commit_info['commit']["author"]["user"]["username"]
+    description = commit_info["description"]
+    title = commit_info["name"]
+    url = commit_info["url"]
+    mentions, message = create_commit_message(
+        author_name, repository, title, description, url, commit_type, commit_state
+    )
+    return str(send_message(mentions, message))
 
 
 def pullrequest(request_json):
@@ -60,6 +77,23 @@ def pullrequest(request_json):
     else:
         return "False"
     return str(send_message(mentions, message))
+
+
+def create_commit_message(
+    author_name, repository, title, description, url, type_, state
+):
+    mentions = [f"{{{author_name}}}"]
+    state_emoji = {
+        "INPROGRESS": ":arrows_counterclockwise:",
+        "SUCCESSFUL": ":white_check_mark:",
+        "FAILED": ":x:"
+    }
+    info_list = [f"詳細: {description}", f"状況: {state}{state_emoji[state]}", f"url: {url}"]
+    info_message = "\n".join(info_list)
+    message = (
+        f"[info][title][{type_}]{repository}: {title}[/title]{info_message}[/info]"
+    )
+    return mentions, message
 
 
 def create_approval_message(
@@ -135,4 +169,6 @@ def send_message(mentions, message, room_id=None):
 
 
 if __name__ == "__main__":
-    print(USERS)
+    test_data = json.loads(open("./test_build_inprogress.json").read())
+    commit(test_data)
+
