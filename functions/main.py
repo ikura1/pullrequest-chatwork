@@ -22,6 +22,7 @@ def manage_event(request):
         mentions, message = commit(request_json)
     else:
         return "False"
+    message = emoji.emojize(message, use_aliases=True)
     return str(send_message(mentions, message))
 
 
@@ -125,7 +126,7 @@ def create_approval_message(
     info_list.extend(approval_stats)
     info_message = "\n".join(info_list)
     message = f"[info][title][プルリク]{title}[/title]{info_message}[/info]"
-    return mentions, emoji.emojize(message, use_aliases=True)
+    return mentions, message
 
 
 def create_create_message(
