@@ -11,7 +11,7 @@ CHAT_ROOM_ID = os.getenv("ROOM_ID", "4649")
 CHAT_BASE_URL = "https://api.chatwork.com/v2"
 
 storage_client = storage.Client()
-USERS = None
+USERS = {}
 
 
 def load_users():
@@ -23,8 +23,6 @@ def load_users():
 
 
 def get_user_name(user_object):
-    if "username" in user_object:
-        return user_object["username"]
     if "account_id" in user_object and user_object["account_id"] in USERS:
         return user_object["account_id"]
     return f"{user_object.get('display_name')}: {user_object.get('account_id')}"
@@ -104,7 +102,7 @@ def pullrequest(event, request_json):
 def create_commit_message(
     author_name, repository, title, description, url, type_, state
 ):
-    mentions = [f"{{{author_name}}}"] if author_name in USERS else [author_name]
+    mentions = [author_name]
     state_emoji = {
         "INPROGRESS": ":arrows_counterclockwise:",
         "SUCCESSFUL": ":white_check_mark:",
@@ -132,7 +130,7 @@ def create_approval_message(
     title,
     url,
 ):
-    mentions = [f"{{{author_name}}}"] if author_name in USERS else [author_name]
+    mentions = [author_name]
     info_list = [
         f"レポジトリ: {repository}",
         f"ブランチ: {source_branch} → {destination_branch}",
@@ -160,7 +158,7 @@ def create_create_message(
     description,
     url,
 ):
-    mentions = [f"{{{user}}}" if user in USERS else user for user in reviewers]
+    mentions = [user for user in reviewers]
     info_list = [
         f"作成者: {{{author_name}}}" if author_name in USERS else f"作成者: {author_name}",
         f"レポジトリ: {repository}",
@@ -184,7 +182,7 @@ def send_message(mentions, message, room_id=None):
     }
 
     mention_text = "\n".join(
-        [mention.format_map(mention_templates) for mention in mentions]
+        [mention_templates.get(mention, mention) for mention in mentions]
     )
     message = message.format_map({k: v["name"] for k, v in user_dict.items()})
     message = mention_text + message
