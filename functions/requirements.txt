@@ -1,2 +1,3 @@
 emoji
 requests
+google-cloud-storage
