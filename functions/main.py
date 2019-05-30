@@ -1,13 +1,25 @@
 # -*- encoding: utf-8 -*-
 import os
-import requests
 import json
+
 import emoji
+from google.cloud import storage
+import requests
 
 CHAT_API_TOKEN = os.getenv("CHATWORKTOKEN", "localhost")
 CHAT_ROOM_ID = os.getenv("ROOM_ID", "4649")
 CHAT_BASE_URL = "https://api.chatwork.com/v2"
-USERS = json.loads(os.getenv("USERS", "{}"))
+
+storage_client = storage.Client()
+USERS = None
+
+
+def load_users():
+    global USERS
+    bucket = storage_client.get_bucket("gladcube")
+    blob = bucket.blob("users.json")
+    contents = blob.download_as_string()
+    USERS = json.loads(contents)
 
 
 def get_user_name(user_object):
@@ -19,6 +31,7 @@ def get_user_name(user_object):
 
 
 def manage_event(request):
+    load_users()
     headers = request.headers
     request_json = request.get_json()
     event = headers.get("X-Event_Key")
