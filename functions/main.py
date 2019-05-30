@@ -13,6 +13,8 @@ USERS = json.loads(os.getenv("USERS", "{}"))
 def get_user_name(user_object):
     if "username" in user_object:
         return user_object["username"]
+    if "account_id" in user_object and user_object["account_id"] in USERS:
+        return user_object["account_id"]
     return f"{user_object.get('display_name')}: {user_object.get('account_id')}"
 
 
@@ -163,12 +165,12 @@ def send_message(mentions, message, room_id=None):
     base_url = CHAT_BASE_URL
     token = CHAT_API_TOKEN
     user_dict = USERS
-    mention_template = "[To:{id}] {name}さん\n"
+    mention_template = "[To:{id}] {name}さん"
     mention_templates = {
         k: mention_template.format_map(v) for k, v in user_dict.items()
     }
 
-    mention_text = "".join(
+    mention_text = "\n".join(
         [mention.format_map(mention_templates) for mention in mentions]
     )
     message = message.format_map({k: v["name"] for k, v in user_dict.items()})
