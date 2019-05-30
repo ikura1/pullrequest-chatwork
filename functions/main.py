@@ -10,6 +10,12 @@ CHAT_BASE_URL = "https://api.chatwork.com/v2"
 USERS = json.loads(os.getenv("USERS", "{}"))
 
 
+def get_user_name(user_object):
+    if "username" in user_object:
+        return user_object["username"]
+    return f"{user_object.get('display_name')}: {user_object.get('account_id')}"
+
+
 def manage_event(request):
     headers = request.headers
     request_json = request.get_json()
@@ -31,7 +37,7 @@ def commit(request_json):
     repository = request_json["repository"]["name"]
     commit_type = commit_info["type"]
     commit_state = commit_info["state"]
-    author_name = commit_info["commit"]["author"]["user"]["username"]
+    author_name = get_user_name(commit_info["commit"]["author"]["user"])
     description = commit_info["description"]
     title = commit_info["name"]
     url = commit_info["url"]
@@ -44,10 +50,10 @@ def commit(request_json):
 def pullrequest(event, request_json):
     pullrequest_info = request_json["pullrequest"]
     repository = request_json["repository"]["name"]
-    author_name = pullrequest_info["author"]["username"]
+    author_name = get_user_name(pullrequest_info["author"])
     description = pullrequest_info["description"]
     title = pullrequest_info["title"]
-    reviewers = [user["username"] for user in pullrequest_info["reviewers"]]
+    reviewers = [get_user_name(user) for user in pullrequest_info["reviewers"]]
     url = pullrequest_info["links"]["html"]["href"]
     destination_branch = pullrequest_info["destination"]["branch"]["name"]
     source_branch = pullrequest_info["source"]["branch"]["name"]
@@ -64,7 +70,7 @@ def pullrequest(event, request_json):
         )
     elif event == "pullrequest:approved":
         participants = {
-            user["user"]["username"]: user["approved"]
+            get_user_name(user["user"]): user["approved"]
             for user in pullrequest_info["participants"]
         }
         mentions, message = create_approval_message(
@@ -176,6 +182,7 @@ def send_message(mentions, message, room_id=None):
 
 
 if __name__ == "__main__":
-    test_data = json.loads(open("./test_build_inprogress.json").read())
-    commit(test_data)
+    test_data = json.loads(open("../test_create_rp.json").read())
+    c, m = pullrequest("pullrequest:created", test_data)
+    print(emoji.emojize(m, use_aliases=True))
 
