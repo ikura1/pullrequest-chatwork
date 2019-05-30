@@ -89,7 +89,7 @@ def pullrequest(event, request_json):
 def create_commit_message(
     author_name, repository, title, description, url, type_, state
 ):
-    mentions = [f"{{{author_name}}}"]
+    mentions = [f"{{{author_name}}}"] if author_name in USERS else [author_name]
     state_emoji = {
         "INPROGRESS": ":arrows_counterclockwise:",
         "SUCCESSFUL": ":white_check_mark:",
@@ -117,7 +117,7 @@ def create_approval_message(
     title,
     url,
 ):
-    mentions = [f"{{{author_name}}}"]
+    mentions = [f"{{{author_name}}}"] if author_name in USERS else [author_name]
     info_list = [
         f"レポジトリ: {repository}",
         f"ブランチ: {source_branch} → {destination_branch}",
@@ -125,7 +125,7 @@ def create_approval_message(
     ]
     reviewers.extend([k for k, v in participants.items() if v and k not in reviewers])
     approval_stats = [
-        f"{':+1:' if participants[user] else ':thinking_face:'} : {{{user}}}"
+        f"{':+1:' if participants[user] else ':thinking_face:'} : {f'{{{user}}}'if user in USERS else user}"
         for user in reviewers
     ]
 
@@ -145,9 +145,9 @@ def create_create_message(
     description,
     url,
 ):
-    mentions = [f"{{{user}}}" for user in reviewers]
+    mentions = [f"{{{user}}}" if user in USERS else user for user in reviewers]
     info_list = [
-        f"作成者: {{{author_name}}}",
+        f"作成者: {{{author_name}}}" if author_name in USERS else f"作成者: {author_name}",
         f"レポジトリ: {repository}",
         f"ブランチ: {source_branch} → {destination_branch}",
         f"url: {url}",
